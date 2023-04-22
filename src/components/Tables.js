@@ -8,7 +8,9 @@ export default class Tables extends Component {
   };
 
   handleInput = (elem, id) => {
-    this.setState({ inputValue: +elem.target.value });
+    if (typeof +elem.target.value === "number") {
+      this.setState({ inputValue: +elem.target.value });
+    }
     let value = +elem.target.value;
     let negInput = Array.from(document.querySelectorAll("input")).find(
       (elem) => elem.getAttribute("dataid") === id
@@ -23,10 +25,7 @@ export default class Tables extends Component {
   getValues = (id) => {
     let store = data.find((item) => item.months.find((e) => e.id === id));
     let eachMon = store.months.find((e) => e.id === id);
-    if (this.state.inputValue === 0) {
-      eachMon.value = 0;
-    }
-    if (this.state.inputValue < 0) {
+    if (this.state.inputValue === 0 || this.state.inputValue < 0) {
       eachMon.value = 0;
     }
     if (this.state.inputValue > 0) {
@@ -50,6 +49,7 @@ export default class Tables extends Component {
         }))
       ),
     });
+    this.setState({ inputValue: "" });
   };
 
   render() {
