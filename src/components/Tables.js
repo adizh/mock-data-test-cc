@@ -26,10 +26,12 @@ export default class Tables extends Component {
     if (this.state.inputValue === 0) {
       eachMon.value = 0;
     }
+    if (this.state.inputValue < 0) {
+      eachMon.value = 0;
+    }
     if (this.state.inputValue > 0) {
       eachMon.value = this.state.inputValue;
     }
-
     let finalArr = data.map((item) => {
       return item.months.map((e) => {
         if (eachMon.id === e.id) {
@@ -101,7 +103,6 @@ export default class Tables extends Component {
                     <input
                       type="number"
                       className="form-control w-100"
-                      border-color="danger"
                       dataid={mon.id}
                       onChange={(e) => this.handleInput(e, mon.id)}
                       onKeyUp={() => this.getValues(mon.id)}
